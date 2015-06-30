@@ -9,6 +9,11 @@ Installs and configures MongoDB, supporting:
 * 10gen repository package installation
 * 10gen MongoDB Monitoring System
 
+And additionally:
+
+* Support for the mongo v3.0 repository
+* Support for AWS OpsWorks with replica sets
+
 [![Build Status](https://travis-ci.org/edelight/chef-mongodb.png?branch=master)](https://travis-ci.org/edelight/chef-mongodb)
 
 ## REQUIREMENTS:
@@ -57,6 +62,13 @@ Basically all settings defined in the Configuration File Options documentation p
     modified, default is `"restart"`
 * `node[:mongodb][:package_version]` - Version of the MongoDB package to install, default is nil
 * `node[:mongodb][:client_role]` - Role identifying all external clients which should have access to a mongod instance
+
+### OpsWorks specific attribute
+
+Currently this assumes that you have layers setup for mongo.  The 2 layer names are for the primary (or master or standalone) and another layer for the secondaries (if you are using a replica set).  Nothing is needed for arbiters. 
+
+* `node[:mongo_master_layer_name]` - The OpsWorks layer name that contains a mongo master or primary (for replicaSets).  If you have a standalone single-server mongo instance, you would still need to put the layer name here.
+* `node[:mongo_secondary_layer_name]` - The OpsWorks layer name that contains mongo replica set SECONDARY servers.
 
 ### Sharding and replication attributes
 
