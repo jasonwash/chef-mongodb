@@ -15,9 +15,9 @@ class Chef::ResourceDefinitionList::OpsWorksHelper
     primary_layer_name = node[:mongo_master_layer_name]
     secondary_layer_name = node[:mongo_secondary_layer_name]
     Chef::Log.info("primary_layer_name: '#{primary_layer_name}', secondary_layer_name: '#{secondary_layer_name}'")
-    primary_instances = node['opsworks']['layers'][primary_layer_name]['instances'] || {}
+    primary_instances = (node['opsworks']['layers'][primary_layer_name]['instances'] rescue {}) || {}
     Chef::Log.info("primary_instances: #{primary_instances}")
-    secondary_instances = node['opsworks']['layers'][secondary_layer_name]['instances'] || {}
+    secondary_instances = (node['opsworks']['layers'][secondary_layer_name]['instances'] rescue {}) || {}
     Chef::Log.info("secondary_instances: #{secondary_instances}")
     instances = primary_instances.merge(secondary_instances)
     Chef::Log.info("instances: #{instances}")
